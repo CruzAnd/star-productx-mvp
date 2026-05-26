@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from sqlalchemy import String, Integer, Boolean
 from app.core.database import Base
 
@@ -11,6 +11,8 @@ class User(Base):
     hashed_password: Mapped[str] = mapped_column(String, nullable=False)
     role: Mapped[str] = mapped_column(String(20),default="cliente") # Rol admin or client
     is_active: Mapped[bool] = mapped_column(Boolean,default=True)
+
+    clientes = relationship("Client", back_populates="user", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<User {self.email}>"
