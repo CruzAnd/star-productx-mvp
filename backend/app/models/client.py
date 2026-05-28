@@ -20,6 +20,8 @@ class Client(Base):
 
     # Relationship with User Model
     user = relationship("User", back_populates="clientes")
+    # Relationship with Brand Model - One client can have multiple brands, and each brand belongs to one client
+    marcas = relationship("Brand", back_populates="cliente", cascade="all, delete-orphan")
 
     def __repr__(self):
         return f"<Client {self.nombre_empresa}>"

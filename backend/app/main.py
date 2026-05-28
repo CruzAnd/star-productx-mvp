@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 from app.core.database import engine, Base
-from app.models import user, client # Important to know the model exist to create the tables
+from app.models import user, client, brand # Important to know the model exist to create the tables
 from app.api.users import router as users_router # New import for the users router
 from app.api.auth import router as auth_router # Import
 from app.api.clients import router as clients_router # Import for clients router
+from app.api.brands import router as brands_router # Import for brands router
 
 # Create the tables in the database if they don't exist
 Base.metadata.create_all(bind=engine)
@@ -21,3 +22,4 @@ def read_root():
 app.include_router(auth_router) # Register 
 app.include_router(users_router)
 app.include_router(clients_router) # Register the clients router
+app.include_router(brands_router) # Register the brands router
