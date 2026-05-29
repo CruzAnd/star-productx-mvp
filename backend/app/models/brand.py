@@ -16,6 +16,8 @@ class Brand(Base):
     # Each brand can have multiple products, and each product belongs to one brand. The relationship is defined using the relationship function, which allows us to access the related Product objects from a Brand instance.
     productos = relationship("Product", back_populates="marca", cascade="all, delete-orphan")
 
+    seguimientos = relationship("BrandTracking", back_populates="marca", cascade="all, delete-orphan")
+
     def __repr__(self):
         return f"<Brand {self.nombre_marca}>"
 
