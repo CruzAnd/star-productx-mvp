@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STARPRODUTX LLC - Iniciar Sesión</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa !important;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body class="d-flex align-items-center justify-content-center">
+
+<div class="card shadow-lg p-4 style-card" style="width: 100%; max-width: 400px; border-radius: 12px;">
+    <div class="text-center mb-4">
+        <h3 class="fw-bold text-primary">STARPRODUTX LLC</h3>
+        <p class="text-muted small">Plataforma de Gestión y Seguimiento Comercial</p>
+    </div>
+
+    <div id="alert-container"></div>
+
+    <form id="login-form">
+        <div class="mb-3">
+            <label for="email" class="form-label fw-semibold">Correo Electrónico</label>
+            <input type="email" id="email" class="form-control" placeholder="nombre@correo.com" required>
+        </div>
+
+        <div class="mb-4">
+            <label for="password" class="form-label fw-semibold">Contraseña</label>
+            <div class="input-group">
+                <input type="password" id="password" class="form-control" placeholder="Ingresa tu contraseña" required>
+                <button class="btn btn-outline-secondary" type="button" id="btn-toggle-password" style="border-color: #ced4da;">
+                    <i class="bi bi-eye-slash" id="icon-toggle-password"></i>
+                </button>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary w-100 fw-bold py-2" id="btn-submit">
+            Ingresar al Sistema
+        </button>
+    </form>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>
