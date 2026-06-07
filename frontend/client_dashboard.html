@@ -1,6 +1,226 @@
 <!DOCTYPE html>
 <html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STARPRODUTX LLC - Portal Cliente</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        :root {
+            --azul-principal: #1F3A5F;
+            --azul-secundario: #2E4E73;
+            --naranja-principal: #F57C00;
+            --naranja-hover: #FF9A3C;
+            --gris-claro: #F5F5F5;
+        }
+
+        body {
+            background-color: var(--gris-claro);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .custom-header {
+            background-color: var(--azul-principal);
+            color: #FFFFFF;
+            height: 60px;
+            padding: 0 20px;
+        }
+        .btn-logout-custom {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+        .btn-logout-custom:hover {
+            color: var(--naranja-hover);
+        }
+
+        .main-wrapper {
+            flex: 1;
+            display: flex;
+        }
+
+        .custom-sidebar {
+            width: 260px;
+            background-color: #FFFFFF;
+            border-right: 1px solid #E0E0E0;
+            padding: 20px 0;
+        }
+        .sidebar-link {
+            display: block;
+            padding: 12px 20px;
+            color: var(--azul-secundario);
+            text-decoration: none;
+            font-weight: 500;
+            border-left: 4px solid transparent;
+            cursor: pointer;
+        }
+        .sidebar-link:hover {
+            background-color: var(--gris-claro);
+            color: var(--azul-principal);
+            border-left-color: var(--naranja-principal);
+        }
+        .sidebar-link.active {
+            background-color: var(--gris-claro);
+            color: var(--azul-principal);
+            border-left-color: var(--azul-principal);
+        }
+
+        .content-container {
+            flex: 1;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: stretch;
+        }
+
+        .custom-footer {
+            background-color: var(--azul-principal);
+            color: #FFFFFF;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 0.85rem;
+        }
+
+        /* Estilos para la línea de tiempo de hitos dentro del modal */
+        .timeline-item {
+            position: relative;
+            padding-left: 30px;
+            border-left: 2px solid #DEE2E6;
+        }
+        .timeline-item.completed {
+            border-left-color: #198754;
+        }
+        .timeline-badge {
+            position: absolute;
+            left: -7px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #DEE2E6;
+        }
+        .timeline-item.completed .timeline-badge {
+            background-color: #198754;
+        }
+    </style>
+
+    <script>
+        const token = localStorage.getItem("token");
+        const role = localStorage.getItem("user_role");
+        if (!token || role !== "cliente") {
+            alert("Acceso denegado. Portal exclusivo para clientes.");
+            window.location.href = "index.html";
+        }
+    </script>
+</head>
 <body>
-<h1>Welcome to Client Dashboard</h1>
+
+<header class="custom-header d-flex justify-content-between align-items-center shadow-sm">
+    <div class="fw-bold fs-5">
+        <i class="bi bi-box-seam-fill me-2" style="color: var(--naranja-hover);"></i>STARPRODUTX LLC
+        <span class="badge bg-secondary ms-2 fs-6 fw-normal text-capitalize">Portal Cliente</span>
+    </div>
+    <div>
+        <a href="#" class="btn-logout-custom" data-bs-toggle="modal" data-bs-target="#modal-logout-corporativo" title="Cerrar Sesión">
+            <i class="bi bi-box-arrow-right fs-4"></i>
+        </a>
+    </div>
+</header>
+
+<div class="main-wrapper">
+
+    <nav class="custom-sidebar">
+        <div class="px-3 mb-3 text-muted small text-uppercase fw-bold">Consultas</div>
+
+        <a href="#" class="sidebar-link active" id="btn-nav-tracking">
+            <i class="bi bi-layout-text-sidebar-reverse me-2"></i> Estado de Mi Proyecto
+        </a>
+
+        <a href="#" class="sidebar-link" id="btn-nav-productos">
+            <i class="bi bi-box-seam me-2"></i> Mis Productos
+        </a>
+
+        <a href="#" class="sidebar-link" id="btn-nav-documentacion">
+            <i class="bi bi-folder-symlink me-2"></i> Documentación (Drive)
+        </a>
+    </nav>
+
+    <main class="content-container" id="main-content-area">
+    </main>
+</div>
+
+<footer class="custom-footer">
+    <div>STARPRODUTX LLC © 2026 | Desarrollado como Plataforma de Gestión de Ciclo Comercial | Versión 1.0.0</div>
+</footer>
+
+<div class="modal fade" id="modal-logout-corporativo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white" style="background-color: var(--azul-principal);">
+                <h5 class="modal-title"><i class="bi bi-shield-exclamation me-2"></i>Confirmar Salida</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <i class="bi bi-door-open text-warning d-block mb-3" style="font-size: 3rem;"></i>
+                <p class="mb-0 text-secondary fw-medium">¿Está seguro de que desea cerrar su sesión en el Portal de STARPRODUTX LLC?</p>
+            </div>
+            <div class="modal-footer bg-light border-top-0">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Permanecer</button>
+                <button type="button" class="btn btn-sm text-white" id="btn-confirmar-logout" style="background-color: var(--naranja-principal);">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-hitos-cliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header text-white" style="background-color: var(--azul-principal);">
+                <h5 class="modal-title" id="modal-hitos-titulo"><i class="bi bi-bezier2 me-2"></i>Flujo de Maduración</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body bg-light" id="modal-hitos-body">
+            </div>
+            <div class="modal-footer bg-white">
+                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Finalizar Consulta</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-detalle-producto-cliente" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header text-white" style="background-color: var(--azul-principal);">
+                <h5 class="modal-title"><i class="bi bi-box-seam me-2"></i>Especificaciones Logísticas</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 bg-light">
+                <div class="bg-white p-3 rounded border mb-3 shadow-sm">
+                    <label class="text-muted small fw-bold d-block text-uppercase">Nombre Comercial</label>
+                    <span class="fw-bold text-dark fs-5" id="view-prod-nombre"></span>
+                </div>
+                <div class="bg-white p-3 rounded border mb-3 shadow-sm">
+                    <label class="text-muted small fw-bold d-block text-uppercase">Descripción del Catálogo</label>
+                    <p class="text-secondary mb-0 small" id="view-prod-descripcion"></p>
+                </div>
+                <div class="row g-2">
+                    <div class="col-6"><div class="bg-white p-3 rounded border shadow-sm"><strong>SKU:</strong> <br><code id="view-prod-sku" class="text-secondary"></code></div></div>
+                    <div class="col-6"><div class="bg-white p-3 rounded border shadow-sm"><strong>Costo Envío:</strong> <br><span id="view-prod-costo" class="text-success fw-bold"></span></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="client_dashboard.js"></script>
 </body>
 </html>
