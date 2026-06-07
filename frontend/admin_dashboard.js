@@ -117,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         btnCrearUsuario.addEventListener("click", async (e) => {
             e.preventDefault(); desmarcarEnlaces(); btnCrearUsuario.classList.add("active");
 
-            // Inyectamos la estructura limpia de la interfaz de usuario en el contenedor central
+            // Inyección de la estructura limpia de la interfaz de usuario en el contenedor central;
             mainContent.innerHTML = `
                 <div class="w-100 align-self-start bg-white p-4 rounded shadow-sm">
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
@@ -194,12 +194,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
             usuarioEditandoId = null;
             inicializarEventosModuloUsuarios();
-            await cargarTablaUsuarios(); // 🔄 Agregado await aquí para WebStorm
+            await cargarTablaUsuarios(); // Agregado await;
         });
     }
 
     // ===================================================
-    // 🔄 READ: TRAER USUARIOS REALES DE FASTAPI + POSTGRES
+    // READ: TRAER USUARIOS REALES DE FASTAPI + POSTGRES
     // ===================================================
     async function cargarTablaUsuarios() {
         const tbody = document.getElementById("tabla-usuarios-body");
@@ -212,14 +212,14 @@ document.addEventListener("DOMContentLoaded", () => {
                 headers: { "Authorization": `Bearer ${tokenActual}` }
             });
 
-            // 🛠️ Se eliminó el 'throw' local para evitar advertencias de WebStorm
+            // Eliminación del 'throw' local para evitar advertencias de WebStorm;
             if (!response.ok) {
                 tbody.innerHTML = `<tr><td colspan="6" class="text-center p-3 text-danger"><i class="bi bi-exclamation-octagon-fill"></i> Error en la respuesta del servidor HTTP.</td></tr>`;
                 return;
             }
 
             const usuarios = await response.json();
-            tbody.innerHTML = ""; // Limpiamos el mensaje de espera
+            tbody.innerHTML = ""; // Limpia el mensaje de espera;
 
             if (usuarios.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="text-center p-3 text-muted">No existen usuarios creados en la base de datos.</td></tr>`;
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===================================================
-    // 🛠️ ACCIONES: MAPEO DINÁMICO (EDITAR Y ELIMINAR)
+    // ACCIONES: MAPEO DINÁMICO (EDITAR Y ELIMINAR)
     // ===================================================
     function mapearEventosBotonesDinamicos() {
         // ACCIÓN: ABRIR EDICIÓN
@@ -290,13 +290,13 @@ document.addEventListener("DOMContentLoaded", () => {
                                 headers: { "Authorization": `Bearer ${tokenActual}` }
                             });
 
-                            // 🛠️ Se quitó el throw local para WebStorm
+
                             if (!delResponse.ok) {
                                 if (crudAlert) crudAlert.innerHTML = `<div class="alert alert-danger small py-2">Error: No se pudo eliminar el registro en la API.</div>`;
                                 return;
                             }
 
-                            await cargarTablaUsuarios(); // 🔄 Agregado await aquí para WebStorm
+                            await cargarTablaUsuarios(); //Agregado await;
                             if (crudAlert) crudAlert.innerHTML = `<div class="alert alert-success small py-2">Usuario removido con éxito.</div>`;
                         } catch (err) {
                             if (crudAlert) crudAlert.innerHTML = `<div class="alert alert-danger small py-2">Error: ${err.message}</div>`;
@@ -308,7 +308,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // ===================================================
-    // 🔍 BUSCADOR Y MANEJO INTERNO DE EVENTOS FORMULARIO
+    // BUSCADOR Y MANEJO INTERNO DE EVENTOS FORMULARIO
     // ===================================================
     function inicializarEventosModuloUsuarios() {
         const modal = document.getElementById("modal-usuario");
@@ -369,7 +369,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         })
                     });
 
-                    // 🛠️ Se quitó el throw local para WebStorm
+
                     if (!response.ok) {
                         alert("Error: El servidor de FastAPI rechazó los datos.");
                         btnSubmit.disabled = false;
@@ -421,7 +421,7 @@ document.addEventListener("DOMContentLoaded", () => {
             desmarcarEnlaces();
             btnCrearCliente.classList.add("active");
 
-            // 1. Inyección de la interfaz gráfica y modales internos
+            // 1. Inyección de la interfaz gráfica y modales internos;
             mainContent.innerHTML = `
                 <div class="w-100 align-self-start bg-white p-4 rounded shadow-sm">
                     <div class="d-flex justify-content-between align-items-center border-bottom pb-2 mb-3">
@@ -525,7 +525,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            // Identificador de control local para saber si editamos o guardamos nuevo
+            // Identificador de control local para saber si editamos o guardamos nuevo;
             let clienteEditandoId = null;
 
             // ===================================================
@@ -599,7 +599,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // ===================================================
             const mapearEventosClientes = () => {
 
-                // 👁️ ACCIÓN: VER DETALLES COMPLETOS (EL OJO)
+                // ACCIÓN: VER DETALLES COMPLETOS (ICONO EL OJO FRONT)
                 document.querySelectorAll(".btn-ver-cliente").forEach(btn => {
                     btn.addEventListener("click", () => {
                         const modalVer = document.getElementById("modal-cliente-ver");
@@ -622,7 +622,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
 
-                // 📝 ACCIÓN: MONTAR DATOS EN EL FORMULARIO PARA EDITAR
+                // ACCIÓN: MONTAR DATOS EN EL FORMULARIO PARA EDITAR
                 document.querySelectorAll(".btn-editar-cliente").forEach(btn => {
                     btn.addEventListener("click", () => {
                         clienteEditandoId = btn.getAttribute("data-id");
@@ -642,7 +642,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
 
-                // 🗑️ ACCIÓN: REUTILIZAR EL MODAL ESTÉTICO DE ELIMINACIÓN
+                // ACCIÓN: REUTILIZAR EL MODAL ESTILO STANDAR DE ELIMINACIÓN
                 document.querySelectorAll(".btn-eliminar-cliente").forEach(btn => {
                     btn.addEventListener("click", () => {
                         const idDel = btn.getAttribute("data-id");
@@ -688,7 +688,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const formCliente = document.getElementById("form-modal-cliente");
             const inputBuscarCli = document.getElementById("input-buscar-cliente");
 
-            // Buscador dinámico de Clientes en caliente
+            // Buscador dinámico de Clientes en caliente;
             if (inputBuscarCli) {
                 inputBuscarCli.addEventListener("input", () => {
                     const val = inputBuscarCli.value.toLowerCase().trim();
@@ -763,7 +763,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 });
             }
 
-            // Ejecución inicial automática al entrar a la sección
+            // Ejecución inicial automática al entrar a la sección;
             await cargarTablaClientes();
         });
     }
@@ -920,7 +920,7 @@ document.addEventListener("DOMContentLoaded", () => {
             };
 
             const mapearEventosMarcas = () => {
-                // 📝 EDITAR MARCA
+                //  EDITAR MARCA
                 document.querySelectorAll(".btn-editar-marca").forEach(btn => {
                     btn.addEventListener("click", async () => {
                         marcaEditandoId = btn.getAttribute("data-id");
@@ -934,7 +934,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 });
 
-                // 🗑️ ELIMINAR MARCA (YA SIN ERROR 500)
+                // ELIMINAR MARCA
                 document.querySelectorAll(".btn-eliminar-marca").forEach(btn => {
                     btn.addEventListener("click", () => {
                         const idDel = btn.getAttribute("data-id");
@@ -1273,7 +1273,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 };
 
                 // ===================================================
-                // MAPEO DE ACCIONES: EL OJO 👁️, EDITAR Y ELIMINAR
+                // MAPEO DE ACCIONES: ACCIÓN ICONO OJO -> EDITAR Y ELIMINAR
                 // ===================================================
                 const mapearEventosProductos = () => {
 
@@ -1311,7 +1311,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     });
 
-                    // 📝 ABRIR MODAL PARA EDITAR PRODUCTO
+                    // ABRIR MODAL PARA EDITAR PRODUCTO
                     document.querySelectorAll(".btn-editar-producto").forEach(btn => {
                         btn.addEventListener("click", async () => {
                             productoEditandoId = btn.getAttribute("data-id");
@@ -1332,7 +1332,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         });
                     });
 
-                    // 🗑️ ELIMINAR PRODUCTO PERMANENTEMENTE
+                    // ELIMINAR PRODUCTO PERMANENTEMENTE
                     document.querySelectorAll(".btn-eliminar-producto").forEach(btn => {
                         btn.addEventListener("click", () => {
                             const idDel = btn.getAttribute("data-id");
@@ -1373,7 +1373,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
                 };
 
-                // Función auxiliar por si no encuentra el modal global en tu vista actual
+                // Función auxiliar por si no encuentra el modal global en vista actual;
                 const executeDeleteDirect = async (idDel) => {
                     const alertBox = document.getElementById("producto-alert-container");
                     try {
@@ -1661,7 +1661,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     tbody.appendChild(fila);
                 });
 
-                // Evento click manual para obtener datos e invocar modal
+                // Evento click manual para obtener datos e invocar modal;
                 document.querySelectorAll(".btn-gestionar-track").forEach(btn => {
                     btn.addEventListener("click", () => {
                         const idBrand = btn.getAttribute("data-id");
@@ -1676,7 +1676,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // 10.2 Cargar Datos de la Marca en el Modal
+        // 10.2 Cargar Datos de la Marca en el Modal;
         async function abrirModalChecklist(idMarca) {
             idMarcaSeleccionadaActual = idMarca;
             try {
@@ -1713,7 +1713,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     boxCheckboxes.appendChild(itemDiv);
                 });
 
-                // Abrimos el modal con nuestra función segura por CSS
+                // Apertura del modal con la función segura por CSS;
                 abrirModalManual();
 
             } catch (err) {
@@ -1722,7 +1722,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         }
 
-        // 10.3 Guardar Cambios
+        // 10.3 Guardar Cambios;
         function configurarBotonGuardar() {
             const btnGuardar = document.getElementById("btn-guardar-tracking");
             if (!btnGuardar) return;
@@ -1764,5 +1764,63 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     })();
 
+    // =========================================================================
+// CONTROL DE SESIÓN INACTIVA - ROL ADMINISTRADOR (45 SEGUNDOS)
+// =========================================================================
+    let temporizadorInactividadAdmin;
+
+    function resetearTemporizadorAdmin() {
+        clearTimeout(temporizadorInactividadAdmin);
+
+        // 45 segundos para demostración del Admin
+        temporizadorInactividadAdmin = setTimeout(() => {
+            const modalElement = document.getElementById('modal-logout-corporativo');
+
+            if (modalElement) {
+                const titulo = modalElement.querySelector('#modal-logout-titulo');
+                if (titulo) titulo.innerHTML = `<i class="bi bi-shield-lock-fill me-2"></i>Sesión Admin Expirada`;
+
+                const cuerpoModal = modalElement.querySelector('#modal-logout-body');
+                if (cuerpoModal) {
+                    cuerpoModal.innerHTML = `
+                    <i class="bi bi-exclamation-octagon text-danger d-block mb-3" style="font-size: 3rem;"></i>
+                    <p class="mb-0 text-secondary fw-medium">🔒 <strong>Seguridad de Infraestructura:</strong> La sesión de administración ha sido suspendida automáticamente por acumular 45 segundos de inactividad.</p>
+                `;
+                }
+
+                const footerModal = modalElement.querySelector('#modal-logout-footer');
+                if (footerModal) {
+                    footerModal.innerHTML = `<span class="text-muted small"><div class="spinner-border spinner-border-sm me-2"></div>Destruyendo entorno seguro...</span>`;
+                }
+
+                const modalCorporativo = new bootstrap.Modal(modalElement);
+                modalCorporativo.show();
+            }
+
+            // 4 segundos de aviso antes de redirigir
+            setTimeout(() => {
+                localStorage.clear();
+                window.location.href = "index.html";
+            }, 4000);
+
+        }, 45000);
+    }
+
+// Oyentes de eventos globales para reiniciar el conteo;
+    window.onload = resetearTemporizadorAdmin;
+    document.onmousemove = resetearTemporizadorAdmin;
+    document.onkeypress = resetearTemporizadorAdmin;
+    document.onclick = resetearTemporizadorAdmin;
+
+// Lógica para que el botón "Cerrar Sesión" manual dentro del modal funcione;
+    document.addEventListener("DOMContentLoaded", () => {
+        const btnManual = document.getElementById("btn-confirmar-logout-admin-modal");
+        if (btnManual) {
+            btnManual.addEventListener("click", () => {
+                localStorage.clear();
+                window.location.href = "index.html";
+            });
+        }
+    });
 
 });

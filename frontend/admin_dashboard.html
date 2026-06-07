@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>STARPRODUTX LLC - Panel Admin</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
         :root {
@@ -114,7 +114,7 @@
         <i class="bi bi-box-seam-fill me-2" style="color: var(--naranja-hover);"></i>STARPRODUTX LLC
     </div>
     <div>
-        <a href="#" id="btn-logout" class="btn-logout-custom" title="Cerrar Sesión">
+        <a href="#" id="btn-logout" class="btn-logout-custom" data-bs-toggle="modal" data-bs-target="#modal-logout-corporativo" title="Cerrar Sesión">
             <i class="bi bi-box-arrow-right fs-4"></i>
         </a>
     </div>
@@ -176,6 +176,26 @@
     <div>STARPRODUTX LLC © 2026 | Desarrollado como Plataforma de Gestión de Ciclo Comercial | Versión 1.0.0</div>
 </footer>
 
+<div class="modal fade" id="modal-logout-corporativo" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+            <div class="modal-header text-white" style="background-color: var(--azul-principal);">
+                <h5 class="modal-title" id="modal-logout-titulo"><i class="bi bi-shield-exclamation me-2"></i>Confirmar Salida</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4" id="modal-logout-body">
+                <i class="bi bi-door-open text-warning d-block mb-3" style="font-size: 3rem;"></i>
+                <p class="mb-0 text-secondary fw-medium">¿Está seguro de que desea cerrar su sesión en el Portal de STARPRODUTX LLC?</p>
+            </div>
+            <div class="modal-footer bg-light border-top-0" id="modal-logout-footer">
+                <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">Permanecer</button>
+                <button type="button" class="btn btn-sm text-white" id="btn-confirmar-logout-admin-modal" style="background-color: var(--naranja-principal);">Cerrar Sesión</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="admin_dashboard.js"></script>
 </body>
 </html>
